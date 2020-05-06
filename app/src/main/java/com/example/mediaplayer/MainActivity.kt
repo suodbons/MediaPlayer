@@ -2,10 +2,8 @@ package com.example.mediaplayer
 
 import android.app.Activity
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.MediaController
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -36,34 +34,23 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null){
             if(requestCode == 1){
-                val uri : Uri? = data.data
-                val selectedItem: String = getPath(uri)
-                if (selectedItem != ""){
-                    Toast.makeText(this, "VIDEO", Toast.LENGTH_SHORT).show()
-                    video_view.setVideoPath(selectedItem)
-                    val mediaController = MediaController(this)
-                    video_view.setMediaController(mediaController)
-                    video_view.requestFocus(0);
-                    video_view.start()
-                }
+                val uri = data.data
+                Toast.makeText(this, "VIDEO", Toast.LENGTH_SHORT).show()
+                video_view.setVideoURI(uri)
+                val mediaController = MediaController(this)
+                video_view.setMediaController(mediaController)
+                video_view.requestFocus(0)
+                video_view.start()
             }
             else if(requestCode == 2){
+                val uri = data.data
                 Toast.makeText(this, "AUDIO", Toast.LENGTH_SHORT).show()
+                video_view.setVideoURI(uri)
+                val mediaController = MediaController(this)
+                video_view.setMediaController(mediaController)
+                video_view.requestFocus(0)
+                video_view.start()
             }
         }
     }
-
-    private fun getPath(uri: Uri?): String {
-        val projectionArray =arrayOf(MediaStore.Video.Media.DATA)
-        val cursor : Cursor? = uri?.let { applicationContext.contentResolver.query(it, projectionArray, null, null, null) }
-        if (cursor != null){
-            val columnIndex : Int = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)
-            cursor.moveToFirst()
-            return cursor.getString(columnIndex)
-        }
-        else{
-            return ""
-        }
-    }
-
 }
