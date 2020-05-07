@@ -17,7 +17,7 @@ class PlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_player, container, false)
-        rootView.stop_button.setOnClickListener{
+        rootView.close_button.setOnClickListener{
             (activity as MainActivity).closePlayer()
         }
         requestCode = arguments?.getInt("requestCode")

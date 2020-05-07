@@ -3,7 +3,7 @@
     <string name="video">Video</string>
     <string name="audio">Audio</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="stop">Stop</string>
+    <string name="close">Close</string>
     <string name="music">music</string>
     <string name="time">00:00</string>
 </resources>
