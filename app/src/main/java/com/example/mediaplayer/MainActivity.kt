@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         intent.type = "video/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(intent, 1)
-
     }
     fun chooseAudio(){
         val intent = Intent()
@@ -34,14 +33,8 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null){
-            if(requestCode == 1){
-                val playerFragment = PlayerFragment.newInstance(1, data.data)
-                supportFragmentManager.beginTransaction().replace(R.id.fragment_choice, playerFragment).commit()
-            }
-            else if(requestCode == 2){
-                val playerFragment = PlayerFragment.newInstance(2, data.data)
-                supportFragmentManager.beginTransaction().replace(R.id.fragment_choice, playerFragment).commit()
-            }
+            val playerFragment = PlayerFragment.newInstance(requestCode, data.data)
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_choice, playerFragment).commit()
         }
     }
 }
